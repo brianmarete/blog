@@ -108,6 +108,7 @@ export default {
             resolve: "gatsby-remark-responsive-iframe",
             options: { wrapperStyle: "margin-bottom: 1.0725rem" },
           },
+          "gatsby-remark-embed-url",
           "gatsby-remark-autolink-headers",
           "gatsby-remark-prismjs",
           "gatsby-remark-copy-linked-files",
