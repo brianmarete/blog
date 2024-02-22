@@ -7,6 +7,9 @@ slug: "/posts/deploying-a-java-spark-app-to-heroku"
 category: "Web Development"
 tags:
   - "Web Development"
+  - "Java"
+  - "Heroku"
+  - "PostgreSQL"
 description: "Spark is a simple and lightweight Java web development framework. This article shows how to deploy a Spark app with a Database on Heroku."
 ---
 
@@ -66,7 +69,7 @@ So this single line tells heroku “When the web dyno starts, run the `todo` bin
 
 But where does this binary file come from? To answer this, we need to take a look at the `build.gradle` file:
 
-TODO: Add Gist
+embed-url-code https://gist.githubusercontent.com/brianmarete/a2cea666a7dade0fa36f1eda862a731b/raw/d8ccf46e970ddf6283514a9596aede7edb6591dc/build.gradle gradle
 
 This is a very basic `build.gradle` file so feel free to modify it based on your application's needs. The key things to note are:
 
@@ -79,7 +82,7 @@ You can read more about deploying Gradle apps to Heroku [here](https://devcenter
 
 The main method of our application is located in `App.java`. Here you'll find all the routes of our applcation. You may notice the following lines of code at the top of our main method:
 
-TODO: Add Gist
+embed-url-code https://gist.githubusercontent.com/brianmarete/0f2a3c3bfbccf2b8c0cf4097ea2a1bc5/raw/5813b68e7396f6bda98203231982ea2fc8d3c80d/App.java java
 
 When running locally, Spark uses port 4567 by default but when it is deployed on Heroku, we may be assigned a different port. The port assigned to our application by Heroku is stored in the `PORT` environment variable. Unless you also have an environmental variable called `PORT` on your local machine, our application assumes that if the `PORT` variable is null, we are running locally. Make sure to include the above code **before** any of your routes.
 
@@ -122,7 +125,7 @@ Your output may vary, especially the `postgresql-objective-24718` part but it wi
 
 Working with the Java Database Connection API can be a bit challenging so we use the [Sql2o](http://www.sql2o.org/) framework to simplify our work. We need to define a static Sql2o instance which we use to open and close the connection to our database as well as running SQL queries. We initialize it in the `DB.java` file:
 
-TODO: Add Gist
+embed-url-code https://gist.githubusercontent.com/brianmarete/576ebc3b8e78cdf8a5481fa103876bac/raw/3f21211b808c0e652def7d9ebba746f813b698d2/DB.java java
 
 The bulk of the file is the initialization of the Sql2o instance in the static constructor. We use the Java URI class to help construct our JDBC connection string. Between lines 13 and 17, we’re creating a URI object which will be different depending on whether we’re running locally or on Heroku.
 
